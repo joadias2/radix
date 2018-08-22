@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "module": "esnext", // Necessary for allowSyntheticDefaultImports
+    "moduleResolution": "node", // Necessary for allowSyntheticDefaultImports
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true, // Directly import React from 'react'
+    "lib": [
+      "es5",
+      "es6",
+      "es7",
+      "es2017.object",
+      "es2018.promise",
+      "dom",
+    ],
+  },
+  "include": [
+    "./src/**/*",
+  ],
+  "exclude": [
+    "./node_modules",
+  ],
+}

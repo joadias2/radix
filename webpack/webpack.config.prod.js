@@ -1,5 +1,6 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Paths = require('./paths');
 
 module.exports = {
   plugins: [
@@ -7,7 +8,8 @@ module.exports = {
     // so that only used files will be generated.
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Radix - The Ultimate React + Typescript Boilerplate',
+      inject: true,
+      template: Paths.HtmlTemplate,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
