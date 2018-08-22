@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Paths = require('./paths');
 
 module.exports = {
+  devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,

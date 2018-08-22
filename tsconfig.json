@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
+    "sourceMap": true,
     "module": "esnext", // Necessary for allowSyntheticDefaultImports
     "moduleResolution": "node", // Necessary for allowSyntheticDefaultImports
     "target": "es5",
