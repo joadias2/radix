@@ -12,6 +12,10 @@ module.exports = {
     ],
   },
   resolve: {
+    modules: [
+      Paths.Source,
+      'node_modules',
+    ],
     extensions: [
       '.tsx',
       '.ts',
