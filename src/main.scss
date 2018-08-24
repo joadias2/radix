@@ -1,8 +1,11 @@
 body {
   background: orange;
+  background-image: url("./images/deadpool.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 p {
-  color: red;
+  color: greenyellow;
   transform: rotate(-90deg);
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Counter from 'components/Counter';
 
 import styles from './App.scss';
+import logo from 'images/logo.svg';
 
 const initialState = {
   counter: 0
@@ -29,6 +30,7 @@ export default class App extends Component<object, State> {
     return (
       <div className={styles.container}>
         <h1>Hello World!</h1>
+        <img src={logo} className="App-logo" alt="logo" />
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta eos labore adipisci?</p>
         <Counter counter={this.state.counter} />
       </div>

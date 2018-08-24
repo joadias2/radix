@@ -14,6 +14,7 @@ module.exports = {
           // Enables HMR for CSS.
           'style-loader',
           {
+            // Allows webpack resolves any url() statements.
             loader: 'css-loader',
             options: {
               // Name of the generated classes.
@@ -33,6 +34,10 @@ module.exports = {
           // Implements some caching solutions.
           'fast-sass-loader',
         ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: 'url-loader',
       },
     ],
   },

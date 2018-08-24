@@ -12,6 +12,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
+            // Allows webpack resolves any url() statements.
             loader: 'css-loader',
             options: {
               // Name of the generated classes.
@@ -29,6 +30,15 @@ module.exports = {
           },
           'fast-sass-loader',
         ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[hash].[ext]',
+          },
+        },
       },
     ],
   },
