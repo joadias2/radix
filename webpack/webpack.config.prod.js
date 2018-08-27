@@ -1,7 +1,10 @@
 const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const Paths = require('./paths');
 
 module.exports = {
@@ -78,5 +81,31 @@ module.exports = {
         },
       },
     },
+    minimizer: [
+      new UglifyWebpackPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: false,
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessor: cssnano,
+        cssProcessorOptions: {
+          options: {
+            discardComments: {
+              removeAll: true,
+            },
+            // Run cssnano in safe mode to avoid
+            // potentially unsafe transformations.
+            safe: true,
+          },
+          canPrint: false,
+        },
+      }),
+    ],
   },
 };
