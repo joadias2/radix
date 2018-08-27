@@ -2,12 +2,17 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const Paths = require('./paths');
 
 module.exports = {
+  output: {
+    chunkFilename: '[name].[chunkhash].js',
+    filename: '[name].[chunkhash].js',
+  },
   module: {
     rules: [
       {
@@ -39,7 +44,7 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: '[hash].[ext]',
+            name: '[name].[hash].[ext]',
           },
         },
       },
@@ -48,7 +53,9 @@ module.exports = {
   plugins: [
     // Clean the /dist folder before each build,
     // so that only used files will be generated.
-    new CleanWebpackPlugin([Paths.Build]),
+    new CleanWebpackPlugin(['dist'], {
+      root: Paths.Root,
+    }),
     new HtmlWebpackPlugin({
       inject: true,
       template: Paths.HtmlTemplate,
@@ -63,12 +70,17 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    // Write the manifest within index.html to avoid another request.
+    // We are splitting the manifest from our entry chunks in optimization.runtimeChunk.
+    // Since the output file is small, it is better to inline it within index.html
+    // instead of issuing another HTTP request.
+    new InlineManifestWebpackPlugin('manifest'),
     // Generates separate CSS files instead of
     // bundling the CSS within javascript.
     // HtmlWebpackPlugin picks it up automatically
     // and injects it into index.html.
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: '[name].[contenthash].css',
     }),
   ],
   optimization: {
@@ -80,6 +92,16 @@ module.exports = {
           chunks: 'initial',
         },
       },
+    },
+    // Extract the manifest into its separate file.
+    // This way we can start loading the files of the project
+    // faster instead of having to wait for the vendor bundle to be loaded.
+    // Every time the hashes webpack generates change, then the manifest changes
+    // as well. If we don't extract it, it will be bundled within the vendors bundle.
+    // Thus, invalidating the vendors bundle everu time we change application code.
+    // Extracting the manifest prevents this catastrophic event to our client caching.
+    runtimeChunk: {
+      name: 'manifest',
     },
     minimizer: [
       new UglifyWebpackPlugin({
