@@ -53,6 +53,11 @@ module.exports = {
     // to get the same result.
     new webpack.HotModuleReplacementPlugin(),
   ],
+  optimization: {
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
+  },
   // Webpack Dev Server is a development server running in-memory,
   // meaning the bundle contents aren't written out to files but
   // stored in memory.
@@ -63,5 +68,7 @@ module.exports = {
     overlay: true,
     open: true,
     hot: true,
+    // 404s return index.html.
+    historyApiFallback: true,
   },
 };

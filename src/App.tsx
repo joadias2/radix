@@ -41,10 +41,10 @@ export default class App extends Component<object, State> {
 
     return (
       <div className={styles.container}>
-        <h1>Hello World!</h1>
-        {Lazy ? <Lazy /> : null}
+        <h1>Hello World!!!</h1>
+        {Lazy ? <Lazy /> : <h2>Loading Lazy Component...</h2>}
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta eos labore adipisci?</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta eos labore adipisci???</p>
         <Counter counter={this.state.counter} />
       </div>
     );
