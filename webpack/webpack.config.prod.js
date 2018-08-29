@@ -41,12 +41,15 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[hash].[ext]',
+        use: [
+          'cache-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash].[ext]',
+            },
           },
-        },
+        ],
       },
     ],
   },

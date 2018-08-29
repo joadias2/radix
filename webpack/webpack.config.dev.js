@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const Paths = require('./paths');
 
 module.exports = {
@@ -52,6 +53,7 @@ module.exports = {
     // webpack-dev-server in the npm script
     // to get the same result.
     new webpack.HotModuleReplacementPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
   ],
   optimization: {
     removeAvailableModules: false,

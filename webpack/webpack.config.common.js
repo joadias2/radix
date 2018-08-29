@@ -1,4 +1,3 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const Paths = require('./paths');
 
 module.exports = {
@@ -29,9 +28,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new ForkTsCheckerWebpackPlugin(),
-  ],
   resolve: {
     modules: [
       Paths.Source,
